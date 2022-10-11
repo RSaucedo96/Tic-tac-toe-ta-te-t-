@@ -72,6 +72,20 @@ ul {
     justify-content: space-evenly;
     align-items: space-evenly;
 }
+.score {
+    background-color: #FF7755;
+  }
+  
+.score ul {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+.score ul li {
+    font-size: 16px;
+    text-transform: uppercase;
+  }
 
 .container {
     border: 1px solid black;
