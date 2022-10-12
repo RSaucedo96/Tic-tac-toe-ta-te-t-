@@ -11,7 +11,6 @@ body {
 
 .container {
   text-align: center;
-  gap: 4px;
   display: grid;
   grid-template-rows: 10%,20%,60%,10%;
 }
