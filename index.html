@@ -9,28 +9,36 @@
         <title>Document</title>
     </head>
     <body>
-        <div class="header">
-            <div class="left">
-              <div class="logo">
-                Sketch Pad
-              </div>
+        <div class="container">
+            <div class="header">
+                <div class="left">
+                <div class="logo">
+                    Sketch Pad
+                </div>
+                </div>
+                <div class="right">
+                    <ul class="links">
+                        <li><a href="https://github.com/RSaucedo96/Sketch-pad"><img src="img/github.png" alt="GitHub"></a></li>
+                        <li><a href="https://www.linkedin.com/in/ricardo-saucedo-7b1311214/"><img src="img/linkedin.png" alt="linkedin"></a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="right">
-                <ul class="links">
-                    <li><a href="https://github.com/RSaucedo96/Sketch-pad"><img src="img/github.png" alt="GitHub"></a></li>
-                    <li><a href="https://www.linkedin.com/in/ricardo-saucedo-7b1311214/"><img src="img/linkedin.png" alt="linkedin"></a></li>
-                </ul>
+            <div class="score">
             </div>
-        </div>
-        <div class="score">
-            <ul>
-              <li>player 1</li>
-              <li>score</li>
-              <li>player 2</li>
-            </ul>
-        </div>
-        <div id="wrapper">
-            <div id="container" class="container">
+            <div id="wrapper">
+                <div class="form" id="player-form">
+                    <form action="tateti.js" class="form-container" >
+                    <h1>Player Names</h1>
+                    
+                    <label for="p1"><b>Player 1</b></label>
+                    <input type="text" placeholder="your name" name="p1" id="p1" required>
+                    
+                    <label for="p2"><b>Player 2</b></label>
+                    <input type="text" placeholder="your name" name="p2" id="p2" required>
+                </div>
+            </div>
+            <div class="footer">
+                <p>Ricardo Saucedo</p>
             </div>
         </div>
     </body>

@@ -8,14 +8,30 @@ player wins
 game ends
 */
 
+
 const documentMock = (() => ({
     querySelector: (selector) => ({
       innerHTML: null,
     }),
-  }))();
+}))();
   
-const Board = (function(doc) {
-    const _log = (message) => console.log(`[${Date.now()}] Logger: ${message}`);
+const Board = (function() {
+    var board=[[],[],[]];
+    
+    const _boardState = (message) => {
+    };
+
+    const _resetBoard = () => {
+      var j;
+      for (var i = board[j].length; i > 0; i--) {
+        board[j].pop();
+        j ++;
+       }
+       j=0;
+       
+       /* clean interface */
+      
+    };
   
     const generate = (text) => {
       _log("Making uppercase");
@@ -54,14 +70,24 @@ const Player = (function(doc) {
 
 
 const Game = (function(doc) {
-    const score = (message) => console.log(`[${Date.now()}] Logger: ${message}`);
+
+
+    const _score = (message) => console.log(`[${Date.now()}] Logger: ${message}`);
   
-    const turn = (text) => {
+    const _turn = (text) => {
       log("Making uppercase");
       return text.toUpperCase();
     };
-  
-    const winCondition = (selector, message) => {
+    
+    const logPlayers = (selector, message) => {
+      doc.querySelector(selector).innerHTML = message;
+    }
+
+    const playRound = (selector, message) => {
+      doc.querySelector(selector).innerHTML = message;
+    }
+    
+    const _winCondition = (selector, message) => {
       doc.querySelector(selector).innerHTML = message;
     }
   
