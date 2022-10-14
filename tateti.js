@@ -11,12 +11,24 @@ game ends
 
 const playerOne = new Player ();
 const playerTwo = new Player ();
+const newGame = new Game();
 
 const playerOneForm = document.getElementById("p1"); 
-playerOneForm.addEventListener("submit", playerOne.log);
+playerOneForm.addEventListener("submit", () => {
+	const playerOneName = document.querySelector('#p1').value;
+  playerOne.log(playerOneName);
+});
 
 const playerTwoForm = document.getElementById("p2"); 
-playerTwoForm.addEventListener("submit", playerTwo.log );
+playerTwoForm.addEventListener("submit", () => {
+	const playerTwoName = document.querySelector('#p2').value;
+  playerTwo.log(playerTwoName);
+});
+
+const startButton = document.getElementById("startbtn");
+startButton.addEventListener("click", () => {
+  newGame.playMatch();
+});
 
 const documentMock = (() => ({
     querySelector: (selector) => ({
@@ -25,7 +37,8 @@ const documentMock = (() => ({
 }))();
   
 const Board = (function() {
-    var board=[[],[],[]];
+    var board=[[[0],[0],[0]],[[0],[0],[0]],[[0],[0],[0]]];
+    const domBoard=document.getElementById("wrapper");
     
     const _boardState = (message) => {
       
@@ -39,18 +52,42 @@ const Board = (function() {
         j ++;
        }
       j=0;
-       
       // clean web board
-      
     };
-  
-    const generate = (text) => {
-      _log("Making uppercase");
-      return text.toUpperCase();
+    
+
+    const _createLine =()=>{
+      const newLine = document.createElement("div");
+      newLine.classList.add("line");
+      board.appendChild(newLine);
     };
 
-    currentState
-  
+    const _drawBoard = ()=>{
+      for (let index = 0; index < 3; index++) {
+        _createLine();
+      }
+      const lines = document.getElementsByClassName("line");
+      for (let i = 0; i < 3; i++) {
+        const line = lines[i];
+        for (let j = 0; j < 3; j++) {
+          const newSquare = document.createElement("div");
+          newSquare.setAttribute("id", "square")
+          newSquare.classList.add(`${i+1}${j+1}`);
+          newSquare.addEventListener("click", function ( Write ) {
+              newSquare.classList.add('hoverSquare')
+          });
+        line.appendChild(newSquare);
+        };
+      };
+    };
+
+    const generate = () => {
+      domBoard.innerHTML = "";
+      _drawBoard();
+
+
+    };
+
     const writeToDOM = (selector, message) => {
       doc.querySelector(selector).innerHTML = message;
     }
@@ -63,12 +100,11 @@ const Board = (function() {
 
 const Player = (function() {
 
-  const log = (e) => {
-    e.preventDefault();
-    const playerName = document.querySelector('#p1').value;
+  const log = (name) => {
+    const playerName = name;
   };
   
-  const makeUppercase = (text) => {
+  const action = (text) => {
       log("Making uppercase");
       return text.toUpperCase();
   };
@@ -99,6 +135,8 @@ const Game = (function(doc) {
     };
 
     const playMatch = () => {
+      const board = new Board();
+      board.generate();
 
     };
 
@@ -107,7 +145,7 @@ const Game = (function(doc) {
     };
   
     return {
-        
+      playMatch      
     }
 })(document || documentMock);
   
