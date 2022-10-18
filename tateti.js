@@ -9,11 +9,6 @@ game ends
 */
 
 
-const playerOne = new Player ();
-const playerTwo = new Player ();
-const newGame = new Game();
-const newBoard = new Board();
-
 const playerOneForm = document.getElementById("p1"); 
 playerOneForm.addEventListener("submit", () => {
 	const playerOneName = document.querySelector('#p1').value;
@@ -65,7 +60,7 @@ const Board = (function() {
     const _createLine =()=>{
       const newLine = document.createElement("div");
       newLine.classList.add("line");
-      board.appendChild(newLine);
+      domBoard.appendChild(newLine);
     };
 
     const _drawBoard = ()=>{
@@ -80,7 +75,7 @@ const Board = (function() {
           newSquare.setAttribute("id", "square");
           newSquare.classList.add(`${i+1}${j+1}`);
           newSquare.addEventListener("click", function ( Write ) {
-              newSquare.classList.add('hoverSquare');
+          newSquare.classList.add('hoverSquare');
           });
         line.appendChild(newSquare);
         };
@@ -97,8 +92,7 @@ const Board = (function() {
     };
   
     return {
-      makeUppercase,
-      writeToDOM,
+      generate
     };
 })();
 
