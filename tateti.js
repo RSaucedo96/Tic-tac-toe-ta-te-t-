@@ -12,6 +12,7 @@ game ends
 const playerOne = new Player ();
 const playerTwo = new Player ();
 const newGame = new Game();
+const newBoard = new Board();
 
 const playerOneForm = document.getElementById("p1"); 
 playerOneForm.addEventListener("submit", () => {
@@ -29,30 +30,35 @@ const startButton = document.getElementById("startbtn");
 startButton.addEventListener("click", () => {
   newGame.playMatch();
 });
-
-const documentMock = (() => ({
-    querySelector: (selector) => ({
-      innerHTML: null,
-    }),
-}))();
   
 const Board = (function() {
-    var board=[[[0],[0],[0]],[[0],[0],[0]],[[0],[0],[0]]];
+    var board=[[0,0,0],[0,0,0],[0,0,0]];
     const domBoard=document.getElementById("wrapper");
     
-    const _boardState = (message) => {
-      
+    const updateBoardState = () => {
+      for (let i = 0; i < board.length; index++) {
+        for (let j = 0; j < board[i].length; index++) {
+          if (board[i][j] == 1){
+
+          }
+          else if (board[i][j] == 2){
+
+          }
+          else{
+
+          }
+        }
+      }
     };
 
     const _resetBoard = () => {
       //clean board array
       var j;
       for (var i = board[j].length; i > 0; i--) {
-        board[j].pop();
+        board[j] = [0,0,0];
         j ++;
        }
       j=0;
-      // clean web board
     };
     
 
@@ -71,10 +77,10 @@ const Board = (function() {
         const line = lines[i];
         for (let j = 0; j < 3; j++) {
           const newSquare = document.createElement("div");
-          newSquare.setAttribute("id", "square")
+          newSquare.setAttribute("id", "square");
           newSquare.classList.add(`${i+1}${j+1}`);
           newSquare.addEventListener("click", function ( Write ) {
-              newSquare.classList.add('hoverSquare')
+              newSquare.classList.add('hoverSquare');
           });
         line.appendChild(newSquare);
         };
@@ -84,19 +90,17 @@ const Board = (function() {
     const generate = () => {
       domBoard.innerHTML = "";
       _drawBoard();
-
-
     };
 
-    const writeToDOM = (selector, message) => {
-      doc.querySelector(selector).innerHTML = message;
-    }
+    const writeToDOM = () => {
+
+    };
   
     return {
       makeUppercase,
       writeToDOM,
-    }
-})(document || documentMock);
+    };
+})();
 
 const Player = (function() {
 
@@ -104,50 +108,38 @@ const Player = (function() {
     const playerName = name;
   };
   
-  const action = (text) => {
-      log("Making uppercase");
-      return text.toUpperCase();
+  const action = () => {
   };
   
-  const writeToDOM = (selector, message) => {
-    doc.querySelector(selector).innerHTML = message;
+  const writeToDOM = () => {
   }
   
     return {
       log
     }
-})(document || documentMock);
+})();
 
 
-const Game = (function(doc) {
-
-
-    const _score = (message) => console.log(`[${Date.now()}] Logger: ${message}`);
-      
+const Game = (function() {
 
     const _turn = () => {
-      log("Making uppercase");
-      return text.toUpperCase();
+
     };
 
-    const _playRound = (selector, message) => {
-      doc.querySelector(selector).innerHTML = message;
-    };
+    const _playRound = () => {};
 
     const playMatch = () => {
-      const board = new Board();
       board.generate();
-
     };
 
-    const _winCondition = (selector, message) => {
-      doc.querySelector(selector).innerHTML = message;
+    const _winConditionCheck = () => {
+    
     };
   
     return {
       playMatch      
     }
-})(document || documentMock);
+})();
   
   
   
