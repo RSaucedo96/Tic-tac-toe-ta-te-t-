@@ -12,23 +12,23 @@ game ends
 const playerOneForm = document.getElementById("p1"); 
 playerOneForm.addEventListener("submit", () => {
 	const playerOneName = document.querySelector('#p1').value;
-  playerOne.log(playerOneName);
+  const playerOne= Player(playerOneName);
 });
 
 const playerTwoForm = document.getElementById("p2"); 
 playerTwoForm.addEventListener("submit", () => {
 	const playerTwoName = document.querySelector('#p2').value;
-  playerTwo.log(playerTwoName);
+  const playerTwo= Player(playerTwoName);
 });
 
 const startButton = document.getElementById("startbtn");
 startButton.addEventListener("click", () => {
-  newGame.playMatch();
+  Game.playMatch();
 });
   
 const Board = (function() {
-    var board=[[0,0,0],[0,0,0],[0,0,0]];
-    const domBoard=document.getElementById("wrapper");
+    var board = [[0,0,0],[0,0,0],[0,0,0]];
+    const domBoard = document.getElementById("wrapper");
     
     const updateBoardState = () => {
       for (let i = 0; i < board.length; index++) {
@@ -96,24 +96,6 @@ const Board = (function() {
     };
 })();
 
-const Player = (function() {
-
-  const log = (name) => {
-    const playerName = name;
-  };
-  
-  const action = () => {
-  };
-  
-  const writeToDOM = () => {
-  }
-  
-    return {
-      log
-    }
-})();
-
-
 const Game = (function() {
 
     const _turn = () => {
@@ -123,7 +105,7 @@ const Game = (function() {
     const _playRound = () => {};
 
     const playMatch = () => {
-      board.generate();
+      Board.generate();
     };
 
     const _winConditionCheck = () => {
@@ -134,6 +116,11 @@ const Game = (function() {
       playMatch      
     }
 })();
+
+const Player = (name) => {
+  const getName  = () => name;
+  return {getName};
+};
   
   
   
