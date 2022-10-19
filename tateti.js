@@ -9,6 +9,7 @@ game ends
 */
 
 
+/*
 const playerOneForm = document.getElementById("p1"); 
 playerOneForm.addEventListener("submit", () => {
 	const playerOneName = document.querySelector('#p1').value;
@@ -20,6 +21,7 @@ playerTwoForm.addEventListener("submit", () => {
 	const playerTwoName = document.querySelector('#p2').value;
   const playerTwo= Player(playerTwoName);
 });
+*/
 
 const startButton = document.getElementById("startbtn");
 startButton.addEventListener("click", () => {
@@ -28,19 +30,21 @@ startButton.addEventListener("click", () => {
   
 const Board = (function() {
     var board = [[0,0,0],[0,0,0],[0,0,0]];
-    const domBoard = document.getElementById("wrapper");
+    const wrapper = document.getElementById("wrapper");
+    const domBoard = document.createElement("div");
+    domBoard.setAttribute("id", "gameboard");
     
     const updateBoardState = () => {
-      for (let i = 0; i < board.length; index++) {
-        for (let j = 0; j < board[i].length; index++) {
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
           if (board[i][j] == 1){
-
+            document.getElementById(`${i+1}${j+1}`).style.backgroundImage = "url('../img/basictile.png')";
           }
           else if (board[i][j] == 2){
-
+            document.getElementById(`${i+1}${j+1}`).style.backgroundImage = "url('../img/basictile.png')";
           }
-          else{
-
+          else if (board[i][j] == 0){
+            document.getElementById(`${i+1}${j+1}`).style.backgroundImage = "url('../img/basictile.png')";
           }
         }
       }
@@ -57,33 +61,32 @@ const Board = (function() {
     };
     
 
-    const _createLine =()=>{
+    const _createLine = (i)=>{
       const newLine = document.createElement("div");
       newLine.classList.add("line");
+      newLine.setAttribute("id", `${i+1}`);
       domBoard.appendChild(newLine);
     };
 
     const _drawBoard = ()=>{
       for (let index = 0; index < 3; index++) {
-        _createLine();
+        _createLine(index);
       }
       const lines = document.getElementsByClassName("line");
       for (let i = 0; i < 3; i++) {
         const line = lines[i];
         for (let j = 0; j < 3; j++) {
           const newSquare = document.createElement("div");
-          newSquare.setAttribute("id", "square");
-          newSquare.classList.add(`${i+1}${j+1}`);
-          newSquare.addEventListener("click", function ( Write ) {
-          newSquare.classList.add('hoverSquare');
-          });
+          newSquare.classList.add("square");
+          newSquare.setAttribute("id",`${i+1}${j+1}`);
         line.appendChild(newSquare);
         };
       };
     };
 
     const generate = () => {
-      domBoard.innerHTML = "";
+      wrapper.innerHTML = "";
+      wrapper.appendChild(domBoard);
       _drawBoard();
     };
 
@@ -92,7 +95,8 @@ const Board = (function() {
     };
   
     return {
-      generate
+      generate,
+      updateBoardState
     };
 })();
 
@@ -106,6 +110,7 @@ const Game = (function() {
 
     const playMatch = () => {
       Board.generate();
+      Board.updateBoardState();
     };
 
     const _winConditionCheck = () => {
