@@ -33,6 +33,7 @@ const Board = (function() {
     const wrapper = document.getElementById("wrapper");
     const domBoard = document.createElement("div");
     domBoard.setAttribute("id", "gameboard");
+    domBoard.style.backgroundImage = "url('./img/boardgraph.png')"
     
     const updateBoardState = () => {
       for (let i = 0; i < 3; i++) {
@@ -88,10 +89,6 @@ const Board = (function() {
       wrapper.innerHTML = "";
       wrapper.appendChild(domBoard);
       _drawBoard();
-    };
-
-    const writeToDOM = () => {
-
     };
   
     return {
