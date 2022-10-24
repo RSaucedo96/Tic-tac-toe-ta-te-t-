@@ -33,9 +33,15 @@ const Board = (function() {
     const wrapper = document.getElementById("wrapper");
     const domBoard = document.createElement("div");
     domBoard.setAttribute("id", "gameboard");
-    domBoard.style.backgroundImage = "url('./img/boardgraph.png')"
+    domBoard.style.backgroundImage = "url('./img/boardgraph.png')";
+
     
-    const updateBoardState = () => {
+
+    const updateArr = (clickedSpace,playerId) => {
+        board[clickedSpace[0]-1][clickedSpace[1]-1] = playerId;
+    };
+    
+    const updateUi = () => {
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
           if (board[i][j] === 1){
@@ -93,21 +99,37 @@ const Board = (function() {
   
     return {
       generate,
-      updateBoardState
+      updateUi,
+      updateArr
     };
 })();
 
 const Game = (function() {
 
-    const _turn = () => {
-
+    const _turn = (playerId) => {
+      const spaces = document.getElementsByClassName("square");
+      console.log(spaces[1].style.backgroundImage);
+      for (let index = 0; index < spaces.length; index++) {
+        if (spaces[index].style.backgroundImage == 'url("./img/basictile.png")'){
+          spaces[index].addEventListener("click", (event) => {
+            spaceId = event.target.id;
+            console.log(spaceId);
+            spaceArr = spaceId.split('');
+            var result = spaceArr.map(function (x) {
+              return parseInt(x, 10); 
+            });
+            Board.updateArr(result,playerId);
+            Board.updateUi();
+          });
+        }
+      }
     };
 
-    const _playRound = () => {};
 
     const playMatch = () => {
       Board.generate();
-      Board.updateBoardState();
+      Board.updateUi();
+      _turn(1);
     };
 
     const _winConditionCheck = () => {
