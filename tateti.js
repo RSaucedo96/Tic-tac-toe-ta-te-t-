@@ -8,25 +8,45 @@ player wins
 game ends
 */
 
+const winningConditions = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
 
-/*
-const playerOneForm = document.getElementById("p1"); 
-playerOneForm.addEventListener("submit", () => {
-	const playerOneName = document.querySelector('#p1').value;
-  const playerOne= Player(playerOneName);
+const form = document.querySelector("#myForm");
+const newGameBtn = document.querySelector("#restartBtn");
+const resetGameBtn = document.querySelector("#resetBtn");
+
+
+newGameBtn.addEventListener("click", () => {
+  location.reload();
 });
 
-const playerTwoForm = document.getElementById("p2"); 
-playerTwoForm.addEventListener("submit", () => {
-	const playerTwoName = document.querySelector('#p2').value;
-  const playerTwo= Player(playerTwoName);
-});
-*/
 
-const startButton = document.getElementById("startbtn");
-startButton.addEventListener("click", () => {
-  Game.playMatch();
+form.addEventListener("submit", (event) => {
+  //prevent page refresh
+  event.preventDefault();
+
+  //initialize user form data
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData);
+  document.querySelector(".modal-wrapper").setAttribute("hidden", true);
+  initializeGame(data);
 });
+
+const resetDom = () => {
+  document.querySelectorAll(".box").forEach((box) => {
+    box.className = "box";
+    box.textContent = "";
+  });
+};
+
   
 const Board = (function() {
     var board = [[0,0,0],[0,0,0],[0,0,0]];
@@ -130,6 +150,12 @@ const Game = (function() {
       Board.generate();
       Board.updateUi();
       _turn(1);
+      sleepUntil(() => document.querySelector('.my-selector'), 5000)
+    .then(() => {
+        // ready
+    }).catch(() => {
+        // timeout
+    });
     };
 
     const _winConditionCheck = () => {
