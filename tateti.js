@@ -133,6 +133,7 @@ const Game = (function() {
         if (spaces[index].style.backgroundImage == 'url("./img/basictile.png")'){
           spaces[index].addEventListener("click", (event) => {
             spaceId = event.target.id;
+            event.target.classList.add("trigger")
             console.log(spaceId);
             spaceArr = spaceId.split('');
             var result = spaceArr.map(function (x) {
@@ -140,23 +141,45 @@ const Game = (function() {
             });
             Board.updateArr(result,playerId);
             Board.updateUi();
-          });
+          },{ once: true });
         }
       }
     };
 
+    const _sleepUntil = async (f, timeoutMs) => {
+      return new Promise((resolve, reject) => {
+        const timeWas = new Date();
+        const wait = setInterval(function() {
+          if (f()) {
+            console.log("resolved after", new Date() - timeWas, "s");
+            clearInterval(wait);
+            resolve();
+          } else if (new Date() - timeWas > timeoutMs) { // Timeout
+            console.log("rejected after", new Date() - timeWas, "s");
+            clearInterval(wait);
+            reject();
+          }
+        }, 20);
+      });
+    };
 
     const playMatch = () => {
       Board.generate();
       Board.updateUi();
-      _turn(1);
-      sleepUntil(() => document.querySelector('.my-selector'), 5000)
-    .then(() => {
-        // ready
-    }).catch(() => {
-        // timeout
-    });
-    };
+      for (let index = 0; index < 9; index++) {
+        console.log(index);
+        _turn(1);
+        _sleepUntil(() => document.querySelector('.trigger'), 5000)
+        .then(() => {
+          selection = document.getElementsByClassName("trigger")
+          selection[0].classList.remove('trigger');
+          _turn(2);
+        });
+        selection = document.getElementsByClassName("trigger")
+        selection[0].classList.remove('trigger');
+      };
+
+   };
 
     const _winConditionCheck = () => {
     
